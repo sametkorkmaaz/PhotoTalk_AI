@@ -3,7 +3,6 @@ import AVKit
 
 protocol SplashViewModelInterface: AnyObject {
     func viewDidLoad()
-    func voiceCommand(with command: String)
     var areAllPermissionsGranted: Bool { get }
     func checkNetworkAndProceed()
 }
@@ -11,7 +10,7 @@ protocol SplashViewModelInterface: AnyObject {
 final class SplashViewModel {
     weak var view: SplashViewInterface?
     private let permissionManager: PermissionManaging
-    private let synthesizer = AVSpeechSynthesizer()
+    
     private(set) var areAllPermissionsGranted = false
     private let networkMonitor: NetworkMonitorInterface
 
@@ -30,11 +29,11 @@ final class SplashViewModel {
                 self.view?.updateButtonState(isEnabled: true)
             case .partiallyGranted:
                 self.areAllPermissionsGranted = false
-                self.voiceCommand(with: "Lütfen gerekli tüm izinleri verin.")
+                VoiceCommandManager.shared.voiceCommand(with: "Lütfen gerekli tüm izinleri verin.")
                 self.view?.updateButtonState(isEnabled: false)
             case .denied:
                 self.areAllPermissionsGranted = false
-                self.voiceCommand(with: "Lütfen gerekli tüm izinleri verin.")
+                VoiceCommandManager.shared.voiceCommand(with: "Lütfen gerekli tüm izinleri verin.")
                 self.view?.updateButtonState(isEnabled: false)
                 self.view?.showPermissionAlert(for: "Konum, Kamera ve Galeri")
             }
@@ -48,7 +47,7 @@ extension SplashViewModel: SplashViewModelInterface {
     func viewDidLoad() {
         _ = NetworkMonitor.shared
         view?.prepareUI()
-        voiceCommand(with: "Photo Talk'a hoşgeldiniz.")
+        VoiceCommandManager.shared.voiceCommand(with: "Photo Talk'a hoşgeldiniz.")
         checkPermissions()
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 3.0) {
@@ -58,19 +57,16 @@ extension SplashViewModel: SplashViewModelInterface {
     
     func checkNetworkAndProceed() {
         if networkMonitor.isConnected {
-            view?.presentHomeScreen()
+            if areAllPermissionsGranted {
+                view?.presentHomeScreen()
+            } else {
+                VoiceCommandManager.shared.voiceCommand(with: "Lütfen gerekli izinleri verin.")
+            }
         } else {
-            voiceCommand(with: "Lütfen internet bağlantınızı sağlayın ve uygulamayı yeniden başlatın.")
+            VoiceCommandManager.shared.voiceCommand(with: "Lütfen internet bağlantınızı sağlayın ve uygulamayı yeniden başlatın.")
             DispatchQueue.main.asyncAfter(deadline: .now() + 7.0) {
                 self.checkNetworkAndProceed()
             }
         }
-    }
-    
-    func voiceCommand(with command: String) {
-        let utterance = AVSpeechUtterance(string: command)
-        utterance.rate = 0.55
-        utterance.voice = AVSpeechSynthesisVoice(language: "tr-TR")
-        synthesizer.speak(utterance)
     }
 }
