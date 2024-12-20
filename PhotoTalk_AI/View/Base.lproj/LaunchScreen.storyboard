@@ -25,12 +25,12 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PhotoTalk AI" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ulz-i1-uOS">
                                 <rect key="frame" x="16" y="563.66666666666663" width="361" height="85"/>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="35"/>
-                                <color key="textColor" name="splashTextColor"/>
+                                <color key="textColor" name="ptSplashBG"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" name="bgColor"/>
+                        <color key="backgroundColor" name="ptBack"/>
                         <constraints>
                             <constraint firstItem="5tI-Je-1uy" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="25t-LM-qHp"/>
                             <constraint firstItem="5tI-Je-1uy" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Fr2-Iq-fFH"/>
@@ -50,10 +50,10 @@
     </scenes>
     <resources>
         <image name="appLogo" width="800" height="800"/>
-        <namedColor name="bgColor">
-            <color red="0.94117647058823528" green="0.97254901960784312" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="ptBack">
+            <color red="0.89411771299999998" green="0.89411771299999998" blue="0.85882353779999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
         </namedColor>
-        <namedColor name="splashTextColor">
+        <namedColor name="ptSplashBG">
             <color red="0.27843137254901962" green="0.34901960784313724" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>

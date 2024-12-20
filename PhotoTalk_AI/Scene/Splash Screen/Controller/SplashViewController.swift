@@ -9,48 +9,37 @@ protocol SplashViewInterface: AnyObject {
 
 final class SplashViewController: UIViewController {
     
-    private let buttonPresent: UIButton = {
-        let button = UIButton()
-        button.setTitle("Giriş Yap", for: .normal)
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .blue
-        button.layer.cornerRadius = 10
-        button.isEnabled = false
-        button.alpha = 0.5
-        return button
+    private let bgImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "SplashBG")
+        imageView.contentMode = .scaleAspectFill
+        return imageView
     }()
     
     private lazy var viewModel = SplashViewModel()
-
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
     }
-
-    @objc func buttonTapped() {
-        if viewModel.areAllPermissionsGranted {
-            presentHomeScreen()
-        } else {
-            viewModel.voiceCommand(with: "Tüm izinler verilmemiş.")
-        }
-    }
 }
 
 extension SplashViewController: SplashViewInterface {
     func prepareUI() {
-        view.backgroundColor = .systemBackground
-        buttonPresent.addTarget(self, action: #selector(buttonTapped), for: .touchUpInside)
+        view.backgroundColor = .ptBack
         
-        view.addSubview(buttonPresent)
-        buttonPresent.translatesAutoresizingMaskIntoConstraints = false
+        [bgImageView].forEach{
+            view.addSubview($0)
+            $0.translatesAutoresizingMaskIntoConstraints = false
+        }
         
         NSLayoutConstraint.activate([
-            buttonPresent.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            buttonPresent.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            buttonPresent.heightAnchor.constraint(equalToConstant: 50),
-            buttonPresent.widthAnchor.constraint(equalToConstant: 200),
+            bgImageView.topAnchor.constraint(equalTo: view.topAnchor),
+            bgImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            bgImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            bgImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
         ])
+        
     }
 
     func showPermissionAlert(for permission: String) {
@@ -76,7 +65,7 @@ extension SplashViewController: SplashViewInterface {
     }
 
     func updateButtonState(isEnabled: Bool) {
-        buttonPresent.isEnabled = isEnabled
-        buttonPresent.alpha = isEnabled ? 1.0 : 0.5
+       // buttonPresent.isEnabled = isEnabled
+        //buttonPresent.alpha = isEnabled ? 1.0 : 0.5
     }
 }
