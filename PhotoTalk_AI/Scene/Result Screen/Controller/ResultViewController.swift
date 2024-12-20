@@ -76,6 +76,11 @@ final class ResultViewController: UIViewController {
         }
     }
     
+    var promtDetailSelection: String? {
+        didSet {
+            viewModel.promtDetailSelection = promtDetailSelection
+        }
+    }
     private lazy var viewModel = ResultViewModel()
     override func viewDidLoad() {
         super.viewDidLoad()
