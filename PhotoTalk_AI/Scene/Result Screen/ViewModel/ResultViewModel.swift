@@ -30,7 +30,12 @@ extension ResultViewModel: ResultViewModelInterface {
     
     
     func fetchGemini() {
-        GeminiManager.shared.fetchGemini(image: self.responseImage!, prompt: "Bu fotoğrafı detaylı şekilde anlat.") { result in
+        guard let originalImage = self.responseImage else {
+            print("Görsel bulunamadı.")
+            return
+        }
+        
+        GeminiManager.shared.fetchGemini(image: originalImage, prompt: "Bu fotoğrafı detaylı şekilde anlat.") { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let responseText):
@@ -40,8 +45,7 @@ extension ResultViewModel: ResultViewModelInterface {
                     print("Yanıt: \(responseText)")
                 case .failure(let error):
                     self.fetchGemini()
-                    VoiceCommandManager.shared.voiceCommand(with: "Fotoğrafınız analiz ediliyor. Lütfen bekleyin.")
-                    print("hata aldı bi daha")
+                    //VoiceCommandManager.shared.voiceCommand(with: "Fotoğrafınız analiz ediliyor. Lütfen bekleyin.")
                     print("Hata: \(error.localizedDescription)")
                 }
             }

@@ -101,6 +101,7 @@ final class HomeViewController: UIViewController, UIImagePickerControllerDelegat
 
         picker.dismiss(animated: true) {
             if let image = selectedImage {
+                // 7MB kotrolü yap.
                 self.presentDetailSelectionScreen(with: image)
             }
         }
