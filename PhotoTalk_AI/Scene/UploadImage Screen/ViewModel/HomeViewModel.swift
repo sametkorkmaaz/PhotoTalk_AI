@@ -21,7 +21,7 @@ final class HomeViewModel {
 extension HomeViewModel: HomeViewModelInterface {
     func viewDidLoad() {
         view?.prepareUI()
-        VoiceCommandManager.shared.voiceCommand(with: "Lütfen yüklemek istediğiniz fotoğrafı kamera ile çekmek istiyorsanız, telefon ekranının yarıdan altına tıklayın. Galeriden yüklemek istiyorsanız, ekranın yarısından üstüne tıklayın.")
+        VoiceCommandManager.shared.voiceCommand(with: "Lütfen yüklemek istediğiniz fotoğrafı kamera ile çekmek istiyorsanız, telefon ekranının alt kısmına tıklayın. Galeriden yüklemek istiyorsanız, ekranın üst kısmına tıklayın.")
     }
     
     
