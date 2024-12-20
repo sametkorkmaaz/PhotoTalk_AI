@@ -6,6 +6,10 @@
 	objectVersion = 70;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		11F4B5AC2D156DA7002FBEAC /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 11F4B5AB2D156DA7002FBEAC /* GoogleGenerativeAI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		114624412D0C4ACE003A3325 /* PhotoTalk_AI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoTalk_AI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -29,6 +33,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				11F4B5AC2D156DA7002FBEAC /* GoogleGenerativeAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,6 +76,7 @@
 			);
 			name = PhotoTalk_AI;
 			packageProductDependencies = (
+				11F4B5AB2D156DA7002FBEAC /* GoogleGenerativeAI */,
 			);
 			productName = PhotoTalk_AI;
 			productReference = 114624412D0C4ACE003A3325 /* PhotoTalk_AI.app */;
@@ -101,6 +107,9 @@
 			);
 			mainGroup = 114624382D0C4ACE003A3325;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				11F4B5AA2D156DA7002FBEAC /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+			);
 			productRefGroup = 114624422D0C4ACE003A3325 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -328,6 +337,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		11F4B5AA2D156DA7002FBEAC /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/google/generative-ai-swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.5.6;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		11F4B5AB2D156DA7002FBEAC /* GoogleGenerativeAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 11F4B5AA2D156DA7002FBEAC /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
+			productName = GoogleGenerativeAI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 114624392D0C4ACE003A3325 /* Project object */;
 }

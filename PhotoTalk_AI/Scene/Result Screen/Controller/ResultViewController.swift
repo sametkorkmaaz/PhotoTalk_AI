@@ -12,6 +12,8 @@ protocol ResultViewInterface: AnyObject {
     func setupActivityIndicator()
     func startActivityIndicator()
     func stopActivityIndicator()
+    
+    func updateGeminiResultLabel(with text: String)
 }
 
 final class ResultViewController: UIViewController {
@@ -24,6 +26,8 @@ final class ResultViewController: UIViewController {
         imageView.layer.cornerRadius = 10
         imageView.layer.shadowColor = UIColor.black.cgColor
         imageView.layer.shadowRadius = 10
+        imageView.layer.borderColor = UIColor.ptBlue.cgColor
+        imageView.layer.borderWidth = 1
         imageView.layer.shadowOpacity = 0.5
         imageView.backgroundColor = .ptBack
         return imageView
@@ -44,11 +48,19 @@ final class ResultViewController: UIViewController {
         label.font = .preferredFont(forTextStyle: .headline)
         return label
     }()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = true
+        scrollView.showsHorizontalScrollIndicator = false
+        return scrollView
+    }()
     private let geminiResultLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .ptBack
         label.textColor = .ptSplashBG
-        label.layer.masksToBounds = false
+        label.textAlignment = .left
+        label.numberOfLines = 0
         label.layer.cornerRadius = 10
         label.layer.shadowColor = UIColor.black.cgColor
         label.layer.shadowRadius = 10
@@ -60,6 +72,7 @@ final class ResultViewController: UIViewController {
     var responseImage: UIImage? {
         didSet {
             imageView.image = responseImage
+            viewModel.responseImage = responseImage
         }
     }
     
@@ -73,14 +86,15 @@ final class ResultViewController: UIViewController {
 }
 
 extension ResultViewController: ResultViewInterface {
+    
     func setupUI() {
         view.backgroundColor = .ptBack
         
-        [imageView, speakerImageView, mlResultLabel, geminiResultLabel].forEach{
+        [imageView, speakerImageView, mlResultLabel, geminiResultLabel, scrollView].forEach{
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
-        
+        scrollView.addSubview(geminiResultLabel)
         
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
@@ -99,11 +113,16 @@ extension ResultViewController: ResultViewInterface {
             mlResultLabel.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
             mlResultLabel.heightAnchor.constraint(equalTo: speakerImageView.heightAnchor),
             
-            geminiResultLabel.topAnchor.constraint(equalTo: mlResultLabel.bottomAnchor,constant: 7),
-            geminiResultLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            geminiResultLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            geminiResultLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            scrollView.topAnchor.constraint(equalTo: mlResultLabel.bottomAnchor,constant: 7),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
             
+            geminiResultLabel.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            geminiResultLabel.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            geminiResultLabel.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            geminiResultLabel.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
+            geminiResultLabel.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             
         ])
     }
@@ -132,9 +151,11 @@ extension ResultViewController: ResultViewInterface {
         }
     }
     
-    
+    func updateGeminiResultLabel(with text: String) {
+        geminiResultLabel.text = text
+    }
 }
 
-#Preview("UIKit") {
+/*#Preview("UIKit") {
     ResultViewController()
-}
+} */
