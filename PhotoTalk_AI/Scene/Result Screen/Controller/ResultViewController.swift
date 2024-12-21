@@ -42,7 +42,7 @@ final class ResultViewController: UIViewController {
     private let mlResultLabel: UILabel = {
         let label = UILabel()
         label.textColor = .ptSplashBG
-        label.text = "Kadınlar futbol oynuyorKadınlar futbol oynuyor."
+        label.text = ""
         label.textAlignment = .left
         label.numberOfLines = 2
         label.font = .preferredFont(forTextStyle: .headline)
