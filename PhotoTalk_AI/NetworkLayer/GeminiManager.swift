@@ -20,19 +20,24 @@ class GeminiManager {
     ///   - prompt: Kullanıcı tarafından belirtilen metin girdisi.
     ///   - completion: Başarı veya hata durumunda geri döndürülecek closure.
     func fetchGemini(image: UIImage, prompt: String, completion: @escaping (Result<String, Error>) -> Void) {
+        // Görseli yeniden boyutlandır
+        let targetSize = CGSize(width: 1024, height: 1024) // API'nin önerdiği boyut olabilir
+        guard let resizedImage = image.resized(to: targetSize) else {
+            completion(.failure(NSError(domain: "GeminiManager", code: 0, userInfo: [NSLocalizedDescriptionKey: "Image resizing failed."])))
+            return
+        }
+        
         Task {
             do {
-                // Görsel ve prompt ile API'yi çağır
-                let response = try await model.generateContent(prompt, image)
+                // Yeniden boyutlandırılmış görsel ile API'yi çağır
+                let response = try await model.generateContent(prompt, resizedImage)
                 
-                // Yanıtı kontrol et
                 if let generatedText = response.text {
                     completion(.success(generatedText))
                 } else {
                     completion(.failure(NSError(domain: "GeminiManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "No text generated in the response."])))
                 }
             } catch {
-                // Hata durumunda geri döndür
                 completion(.failure(error))
             }
         }

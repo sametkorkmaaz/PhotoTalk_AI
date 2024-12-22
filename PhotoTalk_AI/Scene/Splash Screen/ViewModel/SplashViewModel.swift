@@ -26,15 +26,12 @@ final class SplashViewModel {
             switch status {
             case .allGranted:
                 self.areAllPermissionsGranted = true
-                self.view?.updateButtonState(isEnabled: true)
             case .partiallyGranted:
                 self.areAllPermissionsGranted = false
                 VoiceCommandManager.shared.voiceCommand(with: "Lütfen gerekli tüm izinleri verin.")
-                self.view?.updateButtonState(isEnabled: false)
             case .denied:
                 self.areAllPermissionsGranted = false
                 VoiceCommandManager.shared.voiceCommand(with: "Lütfen gerekli tüm izinleri verin.")
-                self.view?.updateButtonState(isEnabled: false)
                 self.view?.showPermissionAlert(for: "Konum, Kamera ve Galeri")
             }
         }

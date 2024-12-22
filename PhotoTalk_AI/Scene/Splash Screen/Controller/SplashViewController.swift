@@ -4,7 +4,6 @@ protocol SplashViewInterface: AnyObject {
     func prepareUI()
     func showPermissionAlert(for permission: String)
     func presentHomeScreen()
-    func updateButtonState(isEnabled: Bool)
 }
 
 final class SplashViewController: UIViewController {
@@ -62,10 +61,5 @@ extension SplashViewController: SplashViewInterface {
         let vc = HomeViewController()
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
-    }
-
-    func updateButtonState(isEnabled: Bool) {
-       // buttonPresent.isEnabled = isEnabled
-        //buttonPresent.alpha = isEnabled ? 1.0 : 0.5
     }
 }

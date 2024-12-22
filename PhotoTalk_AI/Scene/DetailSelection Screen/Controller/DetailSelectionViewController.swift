@@ -75,6 +75,7 @@ final class DetailSelectionViewController: UIViewController {
         VoiceCommandManager.shared.stopVoiceCommand()
         let vc = ResultViewController()
         vc.responseImage = myImage
+        vc.promtDetailSelection = "detaylı"
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
         
@@ -84,6 +85,7 @@ final class DetailSelectionViewController: UIViewController {
         VoiceCommandManager.shared.stopVoiceCommand()
         let vc = ResultViewController()
         vc.responseImage = myImage
+        vc.promtDetailSelection = "yüzeysel"
         vc.modalPresentationStyle = .fullScreen
         present(vc, animated: true, completion: nil)
     }
