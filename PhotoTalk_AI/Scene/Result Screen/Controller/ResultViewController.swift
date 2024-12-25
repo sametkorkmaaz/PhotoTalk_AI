@@ -14,12 +14,23 @@ protocol ResultViewInterface: AnyObject {
     func stopActivityIndicator()
     
     func updateGeminiResultLabel(with text: String)
+    
+    func backUploadImageScreenButtonHidden()
 }
 
 final class ResultViewController: UIViewController {
 
     var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRect(x: 100 ,y: 150, width: 80, height: 80)) as UIActivityIndicatorView
     
+    private let backUploadImageScreenButton: UIButton = {
+        let btn = UIButton()
+        let largeConfig = UIImage.SymbolConfiguration(pointSize: 50, weight: .bold, scale: .large)
+        let largeImage = UIImage(systemName: "arrowshape.turn.up.backward.2.fill", withConfiguration: largeConfig)
+        btn.setImage(largeImage, for: .normal)
+        btn.tintColor = .ptBlue
+        btn.isHidden = true
+        return btn
+    }()
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFit
@@ -87,6 +98,18 @@ final class ResultViewController: UIViewController {
         viewModel.view = self
         viewModel.viewDidLoad()
     }
+    
+    @objc func backUploadImageScreenButtonTapped() {
+        VoiceCommandManager.shared.stopVoiceCommand()
+        let homeVC = HomeViewController()
+        homeVC.modalPresentationStyle = .fullScreen
+        
+        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+           let window = windowScene.windows.first {
+            window.rootViewController = homeVC
+            window.makeKeyAndVisible()
+        }
+    }
 
 }
 
@@ -94,8 +117,9 @@ extension ResultViewController: ResultViewInterface {
     
     func setupUI() {
         view.backgroundColor = .ptBack
+        backUploadImageScreenButton.addTarget(self, action: #selector(backUploadImageScreenButtonTapped), for: .touchUpInside)
         
-        [imageView, speakerImageView, mlResultLabel, geminiResultLabel, scrollView].forEach{
+        [imageView, speakerImageView, mlResultLabel, geminiResultLabel, scrollView, backUploadImageScreenButton].forEach{
             view.addSubview($0)
             $0.translatesAutoresizingMaskIntoConstraints = false
         }
@@ -106,6 +130,11 @@ extension ResultViewController: ResultViewInterface {
             imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             imageView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
+            
+            backUploadImageScreenButton.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            backUploadImageScreenButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            backUploadImageScreenButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            backUploadImageScreenButton.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.5),
             
             speakerImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 5),
             speakerImageView.topAnchor.constraint(equalTo: imageView.bottomAnchor, constant: 5),
@@ -159,8 +188,12 @@ extension ResultViewController: ResultViewInterface {
     func updateGeminiResultLabel(with text: String) {
         geminiResultLabel.text = text
     }
+    
+    func backUploadImageScreenButtonHidden() {
+        backUploadImageScreenButton.isHidden = false
+    }
 }
 
-/*#Preview("UIKit") {
+#Preview("UIKit") {
     ResultViewController()
-} */
+}
