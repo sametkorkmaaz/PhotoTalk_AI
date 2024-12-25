@@ -36,7 +36,7 @@ extension ResultViewModel: ResultViewModelInterface {
             return
         }
         
-        GeminiManager.shared.fetchGemini(image: originalImage, prompt: "Bu fotoğrafı \(promtDetailSelection!) şekilde bir görme engelli bireye anlat. Görme engelli bireyin fotoğrafı kafasında canlandıra bileceği şekilde anlat. Görme engelli bireyin yürürken dikkat etmesi gereken bir durum var ise bunu metinde belirt yoksa belirtmene gerek yok. Dönüş olarak sadece fotoğrafı anlattığın metni ver. Başka hiçbir şey yazma. Devrik cümleler kurma. Fotoğrafı güzel betimle.") { result in
+        GeminiManager.shared.fetchGemini(image: originalImage, prompt: "Bu fotoğrafı \(promtDetailSelection!) şekilde bir görme engelli bireye anlat. Görme engelli bireyin fotoğrafı kafasında canlandıra bileceği şekilde anlat. Görme engelli bireyin yürürken dikkat etmesi gereken veya ona tehlike oluşturabilecek bir durum var ise bunu metinde belirt. Yürürken ona engel olabilecek bir şey görürsen onu uyar. Dönüş olarak sadece fotoğrafı anlattığın metni ver. Başka hiçbir şey yazma. Devrik cümleler kurma. Fotoğrafı güzel betimle.") { result in
             print(self.promtDetailSelection!)
             DispatchQueue.main.async {
                 switch result {
