@@ -41,13 +41,16 @@ extension ResultViewModel: ResultViewModelInterface {
             DispatchQueue.main.async {
                 switch result {
                 case .success(let responseText):
-                    VoiceCommandManager.shared.voiceCommand(with: "\(responseText) Yeni bir görsel göndermek ister misiniz?")
+                    VoiceCommandManager.shared.voiceCommand(with: "\(responseText) Yeni bir görsel göndermek ister misiniz? Fotoğraf yükleme ekranına dönmek için ekranın üst kısmına tıklayın.")
                     self.view?.updateGeminiResultLabel(with: responseText)
                     self.view?.stopActivityIndicator()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
+                        print("Bu işlem 10 saniye sonra çalıştı.")
+                        self.view?.backUploadImageScreenButtonHidden()
+                    }
                     print("Yanıt: \(responseText)")
                 case .failure(let error):
                     self.fetchGemini()
-                    //VoiceCommandManager.shared.voiceCommand(with: "Fotoğrafınız analiz ediliyor. Lütfen bekleyin.")
                     print("Hata: \(error.localizedDescription)")
                 }
             }
