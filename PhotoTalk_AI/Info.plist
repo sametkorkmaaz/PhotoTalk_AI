@@ -2,32 +2,32 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-    <key>UIApplicationSceneManifest</key>
-    <dict>
-        <key>UIApplicationSupportsMultipleScenes</key>
-        <false/>
-        <key>UISceneConfigurations</key>
-        <dict>
-            <key>UIWindowSceneSessionRoleApplication</key>
-            <array>
-                <dict>
-                    <key>UISceneConfigurationName</key>
-                    <string>Default Configuration</string>
-                    <key>UISceneDelegateClassName</key>
-                    <string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
-                </dict>
-            </array>
-        </dict>
-    </dict>
-
-    <!-- İzin Açıklamaları -->
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Bu uygulama, konumunuzu size daha iyi bir deneyim sunmak için kullanır.</string>
-    <key>NSCameraUsageDescription</key>
-    <string>Bu uygulama, fotoğraf çekmek için kameranızı kullanır.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Bu uygulama, fotoğraflarınızı seçmek için galerinize erişir.</string>
-    <key>NSPhotoLibraryAddUsageDescription</key>
-    <string>Bu uygulama, fotoğraflarınızı kaydetmek için galerinize erişir.</string>
+	<key>CFBundleDisplayName</key>
+	<string>PhotoTalkAI</string>
+	<key>UIApplicationSceneManifest</key>
+	<dict>
+		<key>UIApplicationSupportsMultipleScenes</key>
+		<false/>
+		<key>UISceneConfigurations</key>
+		<dict>
+			<key>UIWindowSceneSessionRoleApplication</key>
+			<array>
+				<dict>
+					<key>UISceneConfigurationName</key>
+					<string>Default Configuration</string>
+					<key>UISceneDelegateClassName</key>
+					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
+				</dict>
+			</array>
+		</dict>
+	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Bu uygulama, konumunuzu size daha iyi bir deneyim sunmak için kullanır.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Bu uygulama, fotoğraf çekmek için kameranızı kullanır.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Bu uygulama, fotoğraflarınızı seçmek için galerinize erişir.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Bu uygulama, fotoğraflarınızı kaydetmek için galerinize erişir.</string>
 </dict>
 </plist>
