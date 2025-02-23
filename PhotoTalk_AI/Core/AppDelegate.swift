@@ -5,6 +5,7 @@
 //  Created by Samet Korkmaz on 13.12.2024.
 //
 // Core
+// Core2
 import UIKit
 
 @main
