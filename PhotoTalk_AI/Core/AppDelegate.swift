@@ -4,7 +4,7 @@
 //
 //  Created by Samet Korkmaz on 13.12.2024.
 //
-
+// Core
 import UIKit
 
 @main
