@@ -14,4 +14,4 @@ Görme engelli bireylere bulundukları ortamı sesli bir şekilde anlatan yapay 
 + Swift Package Manager ✅
 
 ## :movie_camera: Uygulama ekran kaydını aşağıdaki görsele tıklayarak izleyebilirsiniz
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/RI7MiXTpl3k/0.jpg)](https://www.youtube.com/watch?v=RI7MiXTpl3k)
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/RI7MiXTpl3k/0.jpg)]([https://www.youtube.com/watch?v=RI7MiXTpl3k](https://www.youtube.com/shorts/S_5kHzA92Ec))
