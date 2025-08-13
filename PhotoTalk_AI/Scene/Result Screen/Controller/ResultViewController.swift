@@ -197,3 +197,6 @@ extension ResultViewController: ResultViewInterface {
 #Preview("UIKit") {
     ResultViewController()
 }
+
+
+// Developer 2 değişiklik yaptı
