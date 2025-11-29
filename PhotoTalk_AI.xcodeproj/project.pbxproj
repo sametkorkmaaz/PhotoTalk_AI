@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		11F4B5AC2D156DA7002FBEAC /* GoogleGenerativeAI in Frameworks */ = {isa = PBXBuildFile; productRef = 11F4B5AB2D156DA7002FBEAC /* GoogleGenerativeAI */; };
+		113B6FAD2EDB069F0033AB1A /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = 113B6FAC2EDB069F0033AB1A /* FirebaseAI */; };
+		113B6FAF2EDB069F0033AB1A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 113B6FAE2EDB069F0033AB1A /* FirebaseCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,7 +34,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				11F4B5AC2D156DA7002FBEAC /* GoogleGenerativeAI in Frameworks */,
+				113B6FAF2EDB069F0033AB1A /* FirebaseCore in Frameworks */,
+				113B6FAD2EDB069F0033AB1A /* FirebaseAI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,7 +78,8 @@
 			);
 			name = PhotoTalk_AI;
 			packageProductDependencies = (
-				11F4B5AB2D156DA7002FBEAC /* GoogleGenerativeAI */,
+				113B6FAC2EDB069F0033AB1A /* FirebaseAI */,
+				113B6FAE2EDB069F0033AB1A /* FirebaseCore */,
 			);
 			productName = PhotoTalk_AI;
 			productReference = 114624412D0C4ACE003A3325 /* PhotoTalk_AI.app */;
@@ -108,7 +111,7 @@
 			mainGroup = 114624382D0C4ACE003A3325;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				11F4B5AA2D156DA7002FBEAC /* XCRemoteSwiftPackageReference "generative-ai-swift" */,
+				113B6FAB2EDB069F0033AB1A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 114624422D0C4ACE003A3325 /* Products */;
 			projectDirPath = "";
@@ -341,21 +344,26 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		11F4B5AA2D156DA7002FBEAC /* XCRemoteSwiftPackageReference "generative-ai-swift" */ = {
+		113B6FAB2EDB069F0033AB1A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/google/generative-ai-swift";
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 0.5.6;
+				minimumVersion = 12.6.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		11F4B5AB2D156DA7002FBEAC /* GoogleGenerativeAI */ = {
+		113B6FAC2EDB069F0033AB1A /* FirebaseAI */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 11F4B5AA2D156DA7002FBEAC /* XCRemoteSwiftPackageReference "generative-ai-swift" */;
-			productName = GoogleGenerativeAI;
+			package = 113B6FAB2EDB069F0033AB1A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAI;
+		};
+		113B6FAE2EDB069F0033AB1A /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 113B6FAB2EDB069F0033AB1A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

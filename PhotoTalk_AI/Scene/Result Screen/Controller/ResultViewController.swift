@@ -186,11 +186,15 @@ extension ResultViewController: ResultViewInterface {
     }
     
     func updateGeminiResultLabel(with text: String) {
-        geminiResultLabel.text = text
+        DispatchQueue.main.async {
+            self.geminiResultLabel.text = text
+        }
     }
     
     func backUploadImageScreenButtonHidden() {
-        backUploadImageScreenButton.isHidden = false
+        DispatchQueue.main.async {
+            self.backUploadImageScreenButton.isHidden = false
+        }
     }
 }
 

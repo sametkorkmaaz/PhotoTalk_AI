@@ -5,41 +5,32 @@
 
 import Foundation
 import UIKit
-import GoogleGenerativeAI
+import FirebaseAI
 
-class GeminiManager {
+class FirebaseAIService {
     
-    static let shared = GeminiManager()
-    private init() {}
+    private let model: GenerativeModel
     
-    private let model = GenerativeModel(name: "gemini-1.5-flash-latest", apiKey: "AIzaSyAQzUIQPnfrB6YyZMetZkdDLrRasqRLwos")
+    init() {
+        let ai = FirebaseAI.firebaseAI(backend: .googleAI())
+        self.model = ai.generativeModel(modelName: AIServiceConstants.modelName)
+    }
     
-    /// Gemini API'ye görsel ve prompt gönderir ve yanıt alır.
-    /// - Parameters:
-    ///   - image: Kullanıcının seçtiği görsel (galeri veya kamera).
-    ///   - prompt: Kullanıcı tarafından belirtilen metin girdisi.
-    ///   - completion: Başarı veya hata durumunda geri döndürülecek closure.
-    func fetchGemini(image: UIImage, prompt: String, completion: @escaping (Result<String, Error>) -> Void) {
-        // Görseli yeniden boyutlandır
-        let targetSize = CGSize(width: 1024, height: 1024) // API'nin önerdiği boyut olabilir
-        guard let resizedImage = image.resized(to: targetSize) else {
-            completion(.failure(NSError(domain: "GeminiManager", code: 0, userInfo: [NSLocalizedDescriptionKey: "Image resizing failed."])))
-            return
+    func imageToText(for image: UIImage) async throws -> String {
+        let promt = AIServiceConstants.imageToTextPrompt
+        
+        let response: GenerateContentResponse
+        
+        do {
+            response = try await model.generateContent(image, promt)
+        } catch {
+            throw AIServiceError.underlyingError(error)
         }
         
-        Task {
-            do {
-                // Yeniden boyutlandırılmış görsel ile API'yi çağır
-                let response = try await model.generateContent(prompt, resizedImage)
-                
-                if let generatedText = response.text {
-                    completion(.success(generatedText))
-                } else {
-                    completion(.failure(NSError(domain: "GeminiManager", code: 1, userInfo: [NSLocalizedDescriptionKey: "No text generated in the response."])))
-                }
-            } catch {
-                completion(.failure(error))
-            }
+        guard let text = response.text else {
+            throw AIServiceError.noTextResponse
         }
+        
+        return text
     }
 }

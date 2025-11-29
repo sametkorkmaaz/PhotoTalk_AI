@@ -14,6 +14,7 @@ protocol ResultViewModelInterface {
 }
 
 final class ResultViewModel {
+    var service = FirebaseAIService()
     weak var view: ResultViewInterface?
     
     var responseImage: UIImage?
@@ -36,23 +37,17 @@ extension ResultViewModel: ResultViewModelInterface {
             return
         }
         
-        GeminiManager.shared.fetchGemini(image: originalImage, prompt: "Bu fotoğrafı \(promtDetailSelection!) şekilde bir görme engelli bireye anlat. Görme engelli bireyin fotoğrafı kafasında canlandıra bileceği şekilde anlat. Görme engelli bireyin yürürken dikkat etmesi gereken veya ona tehlike oluşturabilecek bir durum var ise bunu metinde belirt. Yürürken ona engel olabilecek bir şey görürsen onu uyar. Dönüş olarak sadece fotoğrafı anlattığın metni ver. Başka hiçbir şey yazma. Devrik cümleler kurma. Fotoğrafı güzel betimle.") { result in
-            print(self.promtDetailSelection!)
-            DispatchQueue.main.async {
-                switch result {
-                case .success(let responseText):
-                    VoiceCommandManager.shared.voiceCommand(with: "\(responseText) Yeni bir görsel göndermek ister misiniz? Fotoğraf yükleme ekranına dönmek için ekranın üst kısmına tıklayın.")
-                    self.view?.updateGeminiResultLabel(with: responseText)
-                    self.view?.stopActivityIndicator()
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 20) {
-                        print("Bu işlem 10 saniye sonra çalıştı.")
-                        self.view?.backUploadImageScreenButtonHidden()
-                    }
-                    print("Yanıt: \(responseText)")
-                case .failure(let error):
-                    self.fetchGemini()
-                    print("Hata: \(error.localizedDescription)")
-                }
+        Task {
+            do {
+                let response = try await service.imageToText(for: originalImage)
+                VoiceCommandManager.shared.voiceCommand(with: "\(response) Yeni bir görsel göndermek ister misiniz? Fotoğraf yükleme ekranına dönmek için ekranın üst kısmına tıklayın.")
+                self.view?.updateGeminiResultLabel(with: response)
+                self.view?.stopActivityIndicator()
+                self.view?.backUploadImageScreenButtonHidden()
+                print("Yanıt: \(response)")
+            } catch {
+                self.fetchGemini()
+                print("Hata: \(error.localizedDescription)")
             }
         }
     }
